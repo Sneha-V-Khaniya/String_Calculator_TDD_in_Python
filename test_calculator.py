@@ -13,6 +13,8 @@ class Test(unittest.TestCase):
         self.assertEqual(add("1\n2"), 3)
         self.assertEqual(add("1,2\n3"), 6)
         self.assertEqual(add("1\n2,3, 4\n 5"), 15)
+        self.assertEqual(add("//;\n1;2"), 3)
+        self.assertEqual(add("//@\n1@2@3@4@5"), 15)
         
 
 if __name__ == '__main__':
@@ -24,11 +26,14 @@ def add(numbers = 0):
     
     if numbers.isdigit():
         return int(numbers)
-    else:
+    elif numbers[0:2] != "//":
         nums = re.split(r'[,\n]', numbers)
-        _sum = 0
-        for i in nums:
-            _sum += int(i)
-        return _sum
+    else:
+        delimiter = numbers[2]
+        numbers = numbers[4:]
+        nums = re.split(delimiter, numbers)
     
-    
+    _sum = 0
+    for i in nums:
+        _sum += int(i)
+    return _sum
