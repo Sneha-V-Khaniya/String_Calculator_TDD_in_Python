@@ -17,6 +17,8 @@ class Test(unittest.TestCase):
         self.assertEqual(add("1\n2,3, 4\n 5"), 15)
         self.assertEqual(add("//;\n1;2"), 3)
         self.assertEqual(add("//@\n1@2@3@4@5"), 15)
+        self.assertEqual(add("// \n1 3 4"), 8)
+        self.assertEqual(add("//-\n1-2-3"), 6)
     
     def test_sum_negative_numbers_raise_exception(self):
         with self.assertRaises(NegativeNumberException) as negative_num_error:
